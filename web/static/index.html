@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <base href="%BASE%/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>3GPP Spec Explorer</title>
+    <meta name="description" content="Browse and full-text search every 3GPP technical specification and report, section by section." />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <style>
+      html, body { margin: 0; height: 100%; background: #f8fafc; }
+      @media (prefers-color-scheme: dark) { html, body { background: #020617; } }
+      spec-explorer { display: block; height: 100vh; height: 100dvh; }
+      spec-explorer:not(:defined) { visibility: hidden; }
+    </style>
+    <script type="module" src="./embed.js"></script>
+  </head>
+  <body>
+    <spec-explorer routing="history" base="%BASE%/" manage-title></spec-explorer>
+  </body>
+</html>

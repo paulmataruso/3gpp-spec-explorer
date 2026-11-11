@@ -1,0 +1,13 @@
+services:
+  spec-explorer:
+    build: .
+    image: spec-explorer:latest
+    ports:
+      - "8080:8080"
+    volumes:
+      # 3gpp.db + images/ produced by `npm run build:db` / `node scraper/figures.ts`
+      - ./data:/data:ro
+    environment:
+      BASE_PATH: ""          # e.g. "/3gpp" when served behind a reverse proxy under a sub-path
+      CORS_ORIGIN: "*"       # restrict to your site's origin if you embed the widget elsewhere
+    restart: unless-stopped

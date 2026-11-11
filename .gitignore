@@ -1,0 +1,26 @@
+# dependencies and build output
+node_modules/
+dist/
+
+# the crawled / converted data and the built database (tens of GB, rebuilt with the pipeline)
+data/
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Python bytecode from the converter scripts
+__pycache__/
+*.pyc
+
+# logs, editors, OS files, local env
+*.log
+.env
+.env.*
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# local tooling state
+.impeccable/

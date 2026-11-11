@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Embedding example — 3GPP Spec Explorer</title>
+    <style>
+      body { margin: 0; font-family: system-ui, sans-serif; background: #eef2f7; color: #0f172a; }
+      .host-header { padding: 16px 24px; background: #111827; color: #fff; font-weight: 600; }
+      .grid { display: grid; grid-template-columns: 260px 1fr; gap: 24px; padding: 24px; }
+      .host-side { background: #fff; border-radius: 12px; padding: 16px; height: fit-content; }
+      .host-side button { display: block; width: 100%; margin: 6px 0; padding: 8px; border-radius: 8px; border: 1px solid #cbd5e1; background: #fff; cursor: pointer; text-align: left; }
+      spec-explorer { height: 720px; border-radius: 14px; overflow: hidden; box-shadow: 0 10px 30px rgb(0 0 0 / .12);
+        /* theme the widget from the host page */
+        --se-accent: #0d9488; --se-accent-hover: #0f766e; --se-accent-soft: #f0fdfa; --se-accent-text: #0f766e; }
+    </style>
+    <script type="module" src="./embed.js"></script>
+  </head>
+  <body>
+    <div class="host-header">ACME Network Tools — host application</div>
+    <div class="grid">
+      <div class="host-side">
+        <p><b>Host controls</b> (call the element's API)</p>
+        <button onclick="document.querySelector('spec-explorer').navigate('spec/38.331')">Open TS 38.331</button>
+        <button onclick="document.querySelector('spec-explorer').navigate('spec/23.501/5.6')">Open 23.501 §5.6</button>
+        <button onclick="document.querySelector('spec-explorer').openSearch('PDU session')">Search “PDU session”</button>
+        <p id="log" style="font-size:12px;color:#64748b"></p>
+      </div>
+      <!-- memory routing: the widget never touches the host page URL -->
+      <spec-explorer routing="memory" start="browse?series=38" no-shortcuts></spec-explorer>
+    </div>
+    <script>
+      document.querySelector('spec-explorer').addEventListener('se-navigate', (e) => {
+        document.getElementById('log').textContent = 'se-navigate → ' + e.detail.path;
+      });
+    </script>
+  </body>
+</html>
