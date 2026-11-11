@@ -23,6 +23,6 @@ SOFTWARE.
 ---
 
 This license covers the source code in this repository only. The 3GPP
-specifications the pipeline downloads and converts, and any database built from
-them, are © 3GPP Organizational Partners (ARIB, ATIS, CCSA, ETSI, TSDSI, TTA,
-TTC) and are not part of this repository or covered by this license.
+specifications the pipeline downloads and converts, and any database or data
+release built from them, are © 3GPP Organizational Partners (ARIB, ATIS, CCSA,
+ETSI, TSDSI, TTA, TTC) and are not covered by this license.

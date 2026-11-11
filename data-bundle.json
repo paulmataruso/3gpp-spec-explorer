@@ -1,0 +1,38 @@
+{
+  "format": 1,
+  "tag": "data-20261110",
+  "builtAt": "2026-11-10T22:02:50.403Z",
+  "baseUrl": "https://github.com/paulmataruso/3gpp-spec-explorer/releases/download/data-20261110/",
+  "specs": 4500,
+  "sections": 797551,
+  "figures": 114823,
+  "dbBytes": 2137546752,
+  "imageBytes": 5308575981,
+  "downloadBytes": 6777638177,
+  "files": [
+    {
+      "name": "3gpp.db.zst.001",
+      "kind": "db",
+      "size": 1380615457,
+      "sha256": "6dd1691c792ac437161f3a13b8d6dfc08eed298af781f7ac6009b42c0071df6c"
+    },
+    {
+      "name": "images.001.tar",
+      "kind": "images",
+      "size": 1899796480,
+      "sha256": "73caa9a600cd5fb7ad2a2ad211cf0a7df3676f04ef5e5f93d37eb3c0f8a1041f"
+    },
+    {
+      "name": "images.002.tar",
+      "kind": "images",
+      "size": 1899939840,
+      "sha256": "4e296108941c688409b7d272b2e4d72d2a6c5c250331ec775500d001e6952d80"
+    },
+    {
+      "name": "images.003.tar",
+      "kind": "images",
+      "size": 1597286400,
+      "sha256": "1adfea26e68745b10a095d2379c836337ccab258a4c744d4c60dc9a6cb886e09"
+    }
+  ]
+}

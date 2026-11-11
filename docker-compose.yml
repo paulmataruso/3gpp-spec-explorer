@@ -1,13 +1,18 @@
+# docker compose build && docker compose up -d   →   http://localhost:8080
+#
+# The first start downloads the spec data (about 6.7 GB) into ./data and then starts the app; open the page
+# to watch the progress, or `docker compose logs -f`. Later starts use what is in ./data.
 services:
   spec-explorer:
     build: .
-    image: spec-explorer:latest
+    image: spec-explorer:local
     ports:
-      - "8080:8080"
+      - "${SPEC_EXPLORER_PORT:-8080}:8080"
     volumes:
-      # 3gpp.db + images/ produced by `npm run build:db` / `node scraper/figures.ts`
-      - ./data:/data:ro
+      # 3gpp.db + images/: downloaded here on the first start, or your own build of the data
+      - ./data:/data
     environment:
       BASE_PATH: ""          # e.g. "/3gpp" when served behind a reverse proxy under a sub-path
       CORS_ORIGIN: "*"       # restrict to your site's origin if you embed the widget elsewhere
+      DATA_DOWNLOAD: "auto"  # "off": never download, serve only what is in ./data
     restart: unless-stopped

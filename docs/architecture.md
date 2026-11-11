@@ -71,7 +71,14 @@ web/
 docker/
   converter/               LibreOffice 7.4, pandoc, ImageMagick
   legacy/                  current LibreOffice, wvWare, poppler, tesseract
-scripts/                 finish.sh / complete.sh (unattended pipeline), crawl-bg.sh, server-bg.sh, build-server.mjs
+  entrypoint.sh            app container: first-start data download, then the server as "node"
+scripts/
+  fetch-data.mjs           downloads + verifies + unpacks the data release named in data-bundle.json
+  publish-data.mjs         packs data/ into that release (GitHub) and writes data-bundle.json
+  finish.sh, complete.sh   the unattended pipeline
+  crawl-bg.sh, server-bg.sh, build-server.mjs
+Dockerfile, docker-compose.yml   `docker compose build && docker compose up -d`
+data-bundle.json         the data release this version of the code uses
 ```
 
 ## Rendering

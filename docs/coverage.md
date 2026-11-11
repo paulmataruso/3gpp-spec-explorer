@@ -10,7 +10,7 @@ The numbers are from the November 2026 build.
 | Spec numbers | **4,500**: all 3GPP TS/TR numbers, series 00–55, GSM phase 1 to Rel-21 |
 | Specs with a document | **4,165** |
 | Sections | **797,551** (1.44 billion characters of text) |
-| Figures | **186,442** |
+| Figures | **114,823** files, shown in 186,442 places |
 | Character-drawn diagrams | **4,818** in 193 specs |
 | Files from the spec zips | **45,778** from 347 specs (test suites, codecs, schemas, spreadsheets) |
 | Sections completed from the official `.docx` | **3,346** in 705 specs (where itecspec's rendering was incomplete) |
@@ -56,3 +56,11 @@ These cannot be recovered from 3GPP, ETSI or itecspec:
 | **05.50, figures 5–9** | The document links to an Excel chart on its author's own computer and stores no picture of it. |
 | **About 40 figures in about 15 GSM-era specs** (08.16, 23.010, 03.40, 29.804, 32.015, 03.32, 08.52, 29.005, 22.971, 21.801, 09.60, 29.004, 51.010-3) | Word 6 embedded pictures saved without a preview image. Neither LibreOffice nor wvWare can draw them; only Microsoft Word can. |
 | **23.882's "TBD" figure** | The source document has no figure there. |
+
+## Known gaps
+
+**111 figure references in 42 specs have no figure file.** Half of them are in 36.363 (55), whose metadata
+has no archive link for the figure step to download from. The rest are spread thin: 26.813 and 33.833 have 4
+each, and most others have 1–3. The reader shows these figures as missing. That is about 0.1% of all
+figures, and it is still being investigated.
+

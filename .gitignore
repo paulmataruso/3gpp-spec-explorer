@@ -3,7 +3,9 @@ node_modules/
 dist/
 
 # the crawled / converted data and the built database (tens of GB, rebuilt with the pipeline)
-data/
+# (data/.gitkeep is kept so the folder compose mounts exists and belongs to whoever cloned the repo)
+data/*
+!data/.gitkeep
 *.db
 *.db-journal
 *.db-wal

@@ -92,27 +92,33 @@ the whole set into one reader you can search, link to and embed:
 - The bundle is about 57 KB gzipped.
 
 **Runs on anything with Node ≥ 22.13.** The server has no native modules and no runtime npm
-dependencies (it uses the built-in `node:sqlite`). Docker is optional.
+dependencies (it uses the built-in `node:sqlite`).
 
 ## Quick start
+
+All you need is Docker and about 10 GB of free disk:
 
 ```bash
 git clone https://github.com/paulmataruso/3gpp-spec-explorer.git
 cd 3gpp-spec-explorer
-npm ci
-npm run build            # dist/web (embed.js) + dist/server
-# data/3gpp.db + data/images/ must exist → see "The data" below
-npm start                # http://localhost:8080
+docker compose build && docker compose up -d
 ```
 
-Or with Docker:
+Open **http://localhost:8080**.
 
-```bash
-docker compose up --build    # serves ./data read-only on http://localhost:8080
-```
+- **First start:** the container downloads the complete spec data (database and figures, about 6.7 GB)
+  into `./data`, checks it, and unpacks it. The page shows the progress and becomes the app by itself when
+  it's done. `docker compose logs -f` shows the same.
+- **Later starts:** instant.
 
-[Getting started](docs/getting-started.md) shows how to build a small database with two specs in a few
-minutes.
+| | |
+|---|---|
+| Another port | `SPEC_EXPLORER_PORT=9000 docker compose up -d` |
+| Stop / start | `docker compose down` / `docker compose up -d` (the data stays in `./data`) |
+| Update | `git pull && docker compose build && docker compose up -d` (new data is downloaded if the release changed) |
+| Your own data | Put your own `3gpp.db` and `images/` in `./data`, and they are used as they are |
+
+To run it without Docker, see [Getting started](docs/getting-started.md).
 
 ## Embed it in your site
 
@@ -139,8 +145,12 @@ More in [Embedding](docs/embedding.md) and [Running the server](docs/server.md).
 
 ## The data
 
-The repository contains **code only**. A resumable pipeline builds the data
-([Building the data](docs/data-pipeline.md)) from two sources:
+The ready-built data ships as a [GitHub release](https://github.com/paulmataruso/3gpp-spec-explorer/releases)
+of this repository, which `docker compose up` downloads for you. Git itself only holds code: GitHub does not
+accept files of this size in a repository.
+
+The data is built by a resumable pipeline in this repo ([Building the data](docs/data-pipeline.md)), from
+two sources:
 
 - [itecspec.com/3gpp](https://itecspec.com/3gpp), for the section text and structure;
 - the official [3GPP archive](https://www.3gpp.org/ftp/Specs/), for figures, the documents
@@ -150,7 +160,7 @@ The repository contains **code only**. A resumable pipeline builds the data
 |---|---|
 | Spec numbers | 4,500 (4,165 with a published document) |
 | Sections | 797,551 |
-| Figures | 186,442 |
+| Figures | 114,823 |
 | Specs newer than itecspec | 599 |
 | Sections completed from the official `.docx` | 3,346 |
 | Files recovered from the spec zips | 45,778 (TTCN-3 suites, codecs, ASN.1/YANG/XSD, spreadsheets) |
@@ -174,9 +184,8 @@ The [coverage report](docs/coverage.md) lists what was filled in, and the few th
 
 The code is released under the [MIT license](LICENSE).
 
-The 3GPP specifications are © 3GPP Organizational Partners (ARIB, ATIS, CCSA, ETSI, TSDSI, TTA, TTC).
-They are not part of this repository; the pipeline downloads them from their public sources. Check 3GPP's
-terms before you redistribute a built database. The crawler fetches only page payloads from itecspec.com,
-and stays out of the paths its `robots.txt` disallows.
+The 3GPP specifications, and the data release built from them, are © 3GPP Organizational Partners (ARIB,
+ATIS, CCSA, ETSI, TSDSI, TTA, TTC). The MIT license does not cover them. The crawler fetches only page
+payloads from itecspec.com, and stays out of the paths its `robots.txt` disallows.
 
 This project is not affiliated with or endorsed by 3GPP, ETSI or itecspec.

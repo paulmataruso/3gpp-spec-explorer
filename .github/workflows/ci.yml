@@ -25,3 +25,12 @@ jobs:
 
       - name: Python converter scripts compile
         run: python3 -m py_compile scraper/docx/*.py scraper/figures/*.py
+
+  docker:
+    # what users run: docker compose build (the data is downloaded at first start, not here)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker compose build
+      - name: Data scripts parse
+        run: node --check scripts/fetch-data.mjs && node --check scripts/publish-data.mjs && sh -n docker/entrypoint.sh

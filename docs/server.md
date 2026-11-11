@@ -48,11 +48,25 @@ How it serves:
 ## Docker
 
 ```bash
-docker compose up --build          # http://localhost:8080, ./data mounted read-only at /data
+docker compose build && docker compose up -d     # http://localhost:8080, ./data mounted at /data
 ```
 
-The image is `node:24-alpine` plus the built files, and runs as the `node` user. It has a health check
-on `/api/health`. Set `BASE_PATH` and `CORS_ORIGIN` in `docker-compose.yml`.
+The image is `node:24-alpine` plus the built files.
+
+- **First start.** The entrypoint (`docker/entrypoint.sh`) runs `scripts/fetch-data.mjs` as root. It
+  downloads the data release named in `data-bundle.json` into `/data`, unless that folder already holds
+  data. The server then runs as the unprivileged `node` user. See
+  [Getting started](getting-started.md#what-happens-on-the-first-start).
+- **Health check.** The container checks `/api/health`, with a start period long enough for the first
+  download.
+- **Settings.** The `docker-compose.yml` settings are:
+
+| Setting | Default | |
+|---|---|---|
+| `SPEC_EXPLORER_PORT` (host env) | `8080` | Host port |
+| `BASE_PATH` | (empty) | Sub-path behind a reverse proxy |
+| `CORS_ORIGIN` | `*` | Allowed origin for the API |
+| `DATA_DOWNLOAD` | `auto` | `off`: never download, serve only what is in `./data` |
 
 ## Behind a reverse proxy
 

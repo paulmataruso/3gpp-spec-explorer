@@ -303,3 +303,33 @@ node scraper/fill-check.ts 23.700-83                  # which sections the fill 
 | `data/raw/` | ≈ 560 MB (gzipped NDJSON) |
 | `data/images/` | ≈ 7 GB, 150,000 files |
 | `data/3gpp.db` | ≈ 2.1 GB |
+
+## Publishing the data
+
+`docker compose up` downloads the data from a GitHub release of this repository, named in `data-bundle.json`.
+After you rebuild the data, publish it again:
+
+```bash
+GITHUB_TOKEN=<token with repo scope> node scripts/publish-data.mjs     # --dry shows the plan, --tag overrides the name
+git add data-bundle.json && git commit -m "Data release data-YYYYMMDD" && git push
+```
+
+`scripts/publish-data.mjs` builds the release from `data/3gpp.db`, plus only the figures the database
+references (resolved like the server resolves them):
+
+| Release file | Contents |
+|---|---|
+| `3gpp.db.zst.NNN` | the database, zstd-compressed, cut into parts if needed |
+| `images.NNN.tar` | the figures, paths relative to `images/` |
+
+How it works:
+
+- **Size limit.** Every file stays under 2 GiB, GitHub's limit for one release file.
+- **Disk use.** Files are built, uploaded and deleted one at a time, so about 2 GB of free disk is enough.
+- **Resuming.** Rerunning skips files that are already uploaded.
+- **Manifest.** It writes `data-bundle.json`, with each file's name, size and SHA-256.
+
+Existing installs pick up the new data after `git pull && docker compose build && docker compose up -d`. The
+container sees that `data-bundle.json` names a newer release, and replaces the data it downloaded before. It
+never touches data it did not download.
+
